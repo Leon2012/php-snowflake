@@ -1,11 +1,10 @@
 <?php
 /**
- * 
  * @authors Leon Peng (leon.peng@live.com)
  * @date    2016-08-24 16:58:02
+ *
  * @version $Id$
  */
-
 namespace Leon2012\Snowflake;
 
 define('EPOCH', 1414213562373);
@@ -14,13 +13,12 @@ define('NUMSEQUENCEBITS', 12);
 define('MAXWORKERID', (-1 ^ (-1 << NUMWORKERBITS)));
 define('MAXSEQUENCE', (-1 ^ (-1 << NUMSEQUENCEBITS)));
 
-class Snowflake  
+class snowflake
 {
-
     private $_lastTimestamp;
     private $_sequence = 0;
     private $_workerId = 1;
-    
+
     public function __construct($workerId)
     {
         if (($workerId < 0) || ($workerId > MAXWORKERID)) {
@@ -33,11 +31,11 @@ class Snowflake
     {
         $ts = $this->timestamp();
         if ($ts == $this->_lastTimestamp) {
-            $this->_sequence = ($this->_sequence+1)&MAXSEQUENCE;
+            $this->_sequence = ($this->_sequence + 1) & MAXSEQUENCE;
             if ($this->_sequence == 0) {
                 $ts = $this->waitNextMilli($ts);
             }
-        }else{
+        } else {
             $this->_sequence = 0;
         }
 
@@ -46,12 +44,13 @@ class Snowflake
         }
 
         $this->_lastTimestamp = $ts;
+
         return $this->pack();
     }
 
     private function pack()
     {
-        return ($this->_lastTimestamp<<(NUMWORKERBITS+NUMSEQUENCEBITS))|($this->_workerId<<NUMSEQUENCEBITS)|$this->_sequence;
+        return ($this->_lastTimestamp << (NUMWORKERBITS + NUMSEQUENCEBITS)) | ($this->_workerId << NUMSEQUENCEBITS) | $this->_sequence;
     }
 
     private function waitNextMilli($ts)
@@ -60,15 +59,16 @@ class Snowflake
             sleep(0.1);
             $ts = $this->timestamp();
         }
+
         return $ts;
     }
 
     private function timestamp()
-    {   
-        return ($this->millitime() - EPOCH);
+    {
+        return $this->millitime() - EPOCH;
     }
 
-    private function millitime() 
+    private function millitime()
     {
         $microtime = microtime();
         $comps = explode(' ', $microtime);
