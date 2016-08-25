@@ -6,6 +6,8 @@
  * @version $Id$
  */
 
+namespace Leon2012\Snowflake;
+
 define('EPOCH', 1414213562373);
 define('NUMWORKERBITS', 10);
 define('NUMSEQUENCEBITS', 12);
