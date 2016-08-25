@@ -13,7 +13,7 @@ define('NUMSEQUENCEBITS', 12);
 define('MAXWORKERID', (-1 ^ (-1 << NUMWORKERBITS)));
 define('MAXSEQUENCE', (-1 ^ (-1 << NUMSEQUENCEBITS)));
 
-class snowflake
+class Snowflake
 {
     private $_lastTimestamp;
     private $_sequence = 0;
