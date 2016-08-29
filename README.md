@@ -1,6 +1,6 @@
 # php-snowflake
 
-php snowflake implment
+php snowflake implment.
 
 usage:
 
